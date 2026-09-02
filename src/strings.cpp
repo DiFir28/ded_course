@@ -53,6 +53,25 @@ char *strChr(char *str, char C){
     }
 }
 
+char *strrChr(char *str, char C){
+    unsigned i = 0;
+    char *ptr = NULL;
+    for (; *(str + i) != '\0'; i++){
+        if (*(str + i) == C){
+            ptr = str + i;
+        }
+    }
+    if (*(str + i) == C){
+            ptr = str + i;
+    }
+    if (ptr == NULL){
+        return NULL;
+    }else
+    {
+        return (ptr);
+    }
+}
+
 char *strCat(char *dst, const char *src){
     assert(dst != NULL);
     assert(src != NULL);
@@ -62,7 +81,20 @@ char *strCat(char *dst, const char *src){
     for (; *(src + i) != '\0'; i++){
         *(dst + i + j) = *(src + i);
     }
-    *(dst + i + j) = *(src + i);
+    *(dst + i + j) = '\0';
+    return dst;
+}
+
+char *strNCat(char *dst, const char *src, unsigned n){
+    assert(dst != NULL);
+    assert(src != NULL);
+    unsigned j = 0;
+    for (; *(dst + j) != '\0'; j++);
+    unsigned i = 0;
+    for (; *(src + i) != '\0' && i < n; i++){
+        *(dst + i + j) = *(src + i);
+    }
+    *(dst + i + j) = '\0';
     return dst;
 }
 
@@ -80,15 +112,33 @@ int strCmp(const char *str1, const char *str2){
     }
 }
 
-int arr[] = {};
-int i = 1;
+int strNCmp(const char *str1, const char *str2, unsigned n){
+    assert(str1 != NULL);
+    assert(str2 != NULL);
+    n--;
+    unsigned i = 0;
+    for (; *(str1 + i) == *(str2 + i) && *(str1 + i) != '\0' && i < n; i++);
+    if (*(str1 + i) == *(str2 + i))
+    {
+        return 0;
+    }else
+    {
+        return (*(str1 + i) > *(str2 + i))? 1 : -1;
+    }
+}
 
-int main(){
-    char str[10] = "First";
-    char dir[10] = "Second";
-    // strNCpy(dir, str, 3);
-    putS(dir);
-    printf("%c\n", arr[100000]);
-    // printf("%c\n", *strChr(dir, 'd'));
-    // printf("%d\n", arr[100]);
+char *strStr(char *src, char *trg){
+    unsigned len = strLen(trg);
+    char *beg = strChr(src, *(trg));
+    while (beg != NULL){
+        char buf = *(beg + len);
+        *(beg + len)  = '\0';
+        if (strCmp(beg, trg) == 0){
+            *(beg + len) == buf;
+            return beg;
+        }
+        *(beg + len) == buf;
+        beg = strChr(beg + 1, *(trg));
+    }
+    return NULL;
 }
