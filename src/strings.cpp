@@ -8,6 +8,13 @@ unsigned strLen(const char *str){
     return i;
 }
 
+unsigned strNLen(const char *str, unsigned n){
+    assert(str != NULL);
+    unsigned i = 0;
+    for (; *(str + i) != '\0' && i < n; i++);
+    return i;
+}
+
 int putS(const char *str){
     assert(str != NULL);
     unsigned i = 0;
@@ -40,6 +47,24 @@ char *strNCpy(char *dst, const char *src, unsigned n){
     }
     assert(*(dst + i) != '\0' && i == n);
     return dst;
+}
+
+char *strDup(char *str){
+    char *new_str = (char*)calloc(strLen(str) + 1, sizeof(char));
+    if (new_str == NULL){
+        return NULL;
+    }
+    strNCpy(new_str, str, strLen(str));
+    return new_str;
+}
+
+char *strNDup(char *str, unsigned n){
+    char *new_str = (char*)calloc(n + 1, sizeof(char));
+    if (new_str == NULL){
+        return NULL;
+    }
+    strNCpy(new_str, str, n);
+    return new_str;
 }
 
 char *strChr(char *str, char C){
@@ -141,4 +166,25 @@ char *strStr(char *src, char *trg){
         beg = strChr(beg + 1, *(trg));
     }
     return NULL;
+}
+
+ssize_t getLine(char **strptr, size_t *len, FILE *input){
+    assert(input != NULL);
+    size_t cur_len = 8;
+    char *str =  (char *)malloc(cur_len);
+    *len = 0;
+    unsigned char buf = getc(input); 
+    *len++;
+    while (buf != NULL && buf != '\n' && buf != '\0'){
+        if (*len >= cur_len){
+            cur_len += 8;
+            str = (char*)realloc(str, cur_len);
+        }
+        buf = getc(input); 
+        *len++;
+    }
+    if (*len > cur_len){
+        str = (char*)realloc(str, *len);
+    }
+    strptr = &str;
 }
