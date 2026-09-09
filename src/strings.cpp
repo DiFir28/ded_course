@@ -15,6 +15,13 @@ unsigned strNLen(const char *str, unsigned n){
     return i;
 }
 
+unsigned strNLen(const char *str, unsigned n){
+    assert(str != NULL);
+    unsigned i = 0;
+    for (; *(str + i) != '\0' && i < n; i++);
+    return i;
+}
+
 int putS(const char *str){
     assert(str != NULL);
     unsigned i = 0;

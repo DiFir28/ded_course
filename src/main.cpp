@@ -3,8 +3,6 @@
 #include "triangarr.cpp"
 #include "sorts.cpp"
 
-#define COMANDS_COUNT 5
-
 int arr[] = {};
 int i = 1;
 
