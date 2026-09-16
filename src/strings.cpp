@@ -1,5 +1,5 @@
+#include "strings.hpp"
 #include <assert.h>
-#include <stdio.h>
 
 unsigned strLen(const char *str){
     assert(str != NULL);
@@ -8,7 +8,7 @@ unsigned strLen(const char *str){
     return i;
 }
 
-unsigned strNLen(const char *str, unsigned n){
+unsigned strNLen(const char *str, size_t n){
     assert(str != NULL);
     unsigned i = 0;
     for (; str[i] != '\0' && i < n; i++){;}
@@ -28,7 +28,7 @@ int putS(const char *str){
     int back = 0;
     for (; str[i] != '\0' && back >= 0; i++){
         back = putchar(str[i]);
-        if (back == -1){
+        if (back == EOF){
             return back;
         }
     }
@@ -48,7 +48,7 @@ char *strCpy(char *dst, const char *src){
     return dst;
 }
 
-char *strNCpy(char *dst, const char *src, unsigned n){
+char *strNCpy(char *dst, const char *src, size_t n){
     assert(dst != NULL);
     assert(src != NULL);
     unsigned i = 0;
@@ -56,6 +56,18 @@ char *strNCpy(char *dst, const char *src, unsigned n){
         dst[i] = src[i];
     }
     assert(dst[i] != '\0' && i == n);
+    return dst;
+}
+
+void *memCpy(void *dst, const void *src, size_t n){
+    assert(dst != NULL);
+    assert(src != NULL);
+    char *dst_prt = (char*)dst;
+    char *src_ptr = (char*)src;
+    unsigned i = 0;
+    for (; i < n; i++){
+        *(dst_prt + i) = *(src_ptr + i);
+    }
     return dst;
 }
 
@@ -68,8 +80,8 @@ char *strDup(char *str){
     return new_str;
 }
 
-char *strNDup(char *str, unsigned n){
-    char *new_str = (char*)calloc(n + 1, sizeof(char));
+char *strNDup(char *str, size_t n){
+    char *new_str = (char*)calloc(strNLen(str, n) + 1, sizeof(char));
     if (new_str == NULL){
         return NULL;
     }
@@ -120,7 +132,7 @@ char *strCat(char *dst, const char *src){
     return dst;
 }
 
-char *strNCat(char *dst, const char *src, unsigned n){
+char *strNCat(char *dst, const char *src, size_t n){
     assert(dst != NULL);
     assert(src != NULL);
     unsigned dst_i = 0;
@@ -147,7 +159,7 @@ int strCmp(const char *str1, const char *str2){
     }
 }
 
-int strNCmp(const char *str1, const char *str2, unsigned n){
+int strNCmp(const char *str1, const char *str2, size_t n){
     assert(str1 != NULL);
     assert(str2 != NULL);
     n--;
