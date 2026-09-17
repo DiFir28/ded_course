@@ -1,0 +1,1 @@
+ g++ -I./include src/main.cpp src/sorts.cpp src/strings.cpp -o  main 
