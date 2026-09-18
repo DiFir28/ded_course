@@ -1,1 +1,1 @@
- g++ -I./include src/main.cpp src/sorts.cpp src/strings.cpp -o  main 
+ g++ -I./include src/main.cpp src/sorts.cpp src/strings.cpp src/din_arr.cpp src/str_alpha_encode.cpp -o  main 

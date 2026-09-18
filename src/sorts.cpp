@@ -17,7 +17,7 @@ void swap(void * first, void * second, size_t byte_count){
     }
 }
 
-void bableSort(void *arr, size_t elem_size, size_t len, int (*compare)(void*, void*)){
+void bableSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
     char *arr_ptr = (char*)arr;
     for (unsigned i = 0; i < len - 1; i++){
         for (unsigned j = 0, end_j = len - i - 1; j < end_j; j++){
@@ -28,14 +28,14 @@ void bableSort(void *arr, size_t elem_size, size_t len, int (*compare)(void*, vo
     }
 }
 
-int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(void*, void*)){
+int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
     if (len <= 1){
         return 0;
     }
     char *arr_ptr = (char*)arr;
     unsigned pivot_ind = len/2;
     char* pivot = (char *)calloc(1, elem_size);
-    memCpy(pivot, arr_ptr + (len / 2) * elem_size, elem_size);
+    memCpy(pivot, arr_ptr + (pivot_ind) * elem_size, elem_size);
     
     unsigned left_len = 0;
     unsigned right_len = len;
@@ -55,5 +55,100 @@ int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(void*, voi
     }
     quickSort(arr_ptr, elem_size, left_len, compare);
     quickSort(arr_ptr + left_len * elem_size + elem_size, elem_size, len - 1 - left_len, compare); 
+    return 0;
+}
+
+int quickSortInt(int *arr, size_t len, int lvl, int *base, int base_len){
+    if (len <= 1){
+        return 0;
+    }
+    unsigned pivot_ind = len/2;
+    int pivot = arr[pivot_ind];
+    for(int l = 0; l < lvl; l++){
+            printf("\033[32m--------");
+        }
+    printf("\033[32mPivot: %d\tLen: %d\n\033", pivot, len);
+
+    unsigned left_len = 0;
+    unsigned right_len = len;
+
+    while(left_len < right_len){
+        for(int l = 0; l < lvl; l++){
+            printf("\033[90m%d\t\033[0m", base[l]);
+        }
+        for (int i = 0; i < len; i ++) {
+            if (i < left_len){
+                printf("\033[34m%d\t\033[0m", arr[i]);
+                continue;
+            }
+            if (i == left_len){
+                printf("\033[34m%d\t\033[0m", arr[i]);
+                continue;
+            }
+            if (i < right_len){
+                printf("%d\t", arr[i]);
+                continue;
+            }
+            if (i == right_len){
+                printf("\033[31m%d\t\033[0m", arr[i]);
+                continue;
+            }
+            if (i > right_len){
+                printf("\033[34m%d\t\033[0m", arr[i]);
+                continue;
+            }
+        }
+        for(int l = len + lvl; l < base_len; l++){
+            printf("\033[90m%d\t\033[0m", base[l]);
+        }
+        printf("\t Left: %d Right: %d\n", left_len, right_len);
+        for(int l = 0; l < lvl; l++){
+            printf("\t");
+        }
+        for (int i = 0; i < len; i ++) {
+            if (i < left_len){
+                printf("\033[34m%d\t\033[0m", i);
+                continue;
+            }
+            if (i == left_len){
+                printf("\033[34m%d(L)\t\033[0m", i);
+                continue;
+            }
+            if (i < right_len){
+                printf("%d\t", i);
+                continue;
+            }
+            if (i == right_len){
+                printf("\033[31m%d(R)\t\033[0m", i);
+                continue;
+            }
+            if (i > right_len){
+                printf("\033[31m%d\t\033[0m", i);
+                continue;
+            }
+        }
+        printf("\n");
+
+        if (arr[left_len] >= pivot){
+            do{ 
+            right_len--;
+            }while (arr[right_len] > pivot && right_len > left_len);
+            if (right_len == left_len){
+                break;
+            }
+            for(int l = 0; l < lvl; l++){
+                printf("\t");
+            }
+            printf("\033[33mSwap: %d %d\n\033[0m", left_len, right_len);
+            swap(arr + left_len, arr + right_len, sizeof(arr[0]));           
+            // printf("Right");
+        }else{
+            left_len++;
+        // printf("Left");
+        }
+        // printf("%d %d\n", left_len, right_len);
+    }
+    quickSortInt(arr, left_len, (arr - base), base, base_len);
+    quickSortInt(arr + left_len + 1, len - 1 - left_len, arr + left_len + 1 - base, base, base_len); 
     return 0;
 }

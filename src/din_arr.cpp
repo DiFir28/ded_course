@@ -1,16 +1,9 @@
+#include "din_arr.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include "strings.hpp"
-
-#define createVector(len, element_type) createVectorSys(len, sizeof(element_type));
-
-struct mVector{
-    void *beg;
-    size_t element_size;
-    unsigned len;
-    unsigned max_len;
-};
 
 mVector createVectorSys(unsigned len, size_t element_size){
     mVector out = {};
@@ -28,8 +21,7 @@ int pushBack(mVector *vec, void *val){
         vec->beg = realloc(vec->beg, vec->max_len * vec->element_size);
     }
     memCpy((char*)vec->beg + (vec->len) * vec->element_size, val, vec->element_size);
-    vec->len++;
-    return (vec->len - 1);
+    return (vec->len++);
 }
 
 // !void popBeg(mVector *vec){
@@ -63,19 +55,3 @@ void indexRemove(mVector *vec, unsigned ind){
     }
     vec->len-=1;
 }
-
-// int main(){
-//     mVector v = createVector(1, char);
-//     char a = 'Y';
-//     // memcpy((v.beg + 1), &a, v.element_size);
-//     printf("Max len %d\n", (v.len));
-
-//     writeElement(&v, 0, &a);
-//     a = 'E';
-//     pushBack(&v, &a);
-//     a = 'U';
-//     pushBack(&v, &a);
-//     pushBack(&v, &a);
-//     swap(&v, 1, 2);
-//     printVec(&v);
-// }
