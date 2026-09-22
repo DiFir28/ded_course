@@ -2296,7 +2296,7 @@
    Hymen's embarrassments, distress,
    I
    I
-»¿   I
+   I
    I
    I
    I
@@ -8276,7 +8276,7 @@
    The dusty chronicles of earth
    And thou shalt taste the joys of earth.
    I
-»¿   I
+   I
    I
    I
    I
@@ -11478,7 +11478,8 @@
 
 //////////////////////////////////////////////////////////
 
-ï»¿   I
+
+   I
 
    "My uncle's goodness is extreme,
    If seriously he hath disease;
@@ -18036,5 +18037,6 @@
     
 
       The End
+
 
 

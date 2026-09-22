@@ -27,11 +27,11 @@ void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long lo
         {
             if (isalpha(*(book + iter)))
             {
-                buf.hash[(hash_iter / 8)] |= (toupper(*(book + iter)) & 0x1F) << 3 >> (hash_iter % 8);
+                buf.hash[(hash_iter / 8)] |= (toupper(*(book + iter)) & 0x1F) << 3 >> (hash_iter % 8); //* Write 5 bit that placed in curent byte
                 if (hash_iter % 8 > 3){
-                    buf.hash[(hash_iter / 8) + 1] |= (toupper(*(book + iter)) & 0x1F) << 11 >> (hash_iter % 8);
+                    buf.hash[(hash_iter / 8) + 1] |= (toupper(*(book + iter)) & 0x1F) << 11 >> (hash_iter % 8); //* Write 5 bit that don't placed in curent byte
                 }
-                hash_iter += 5;
+                hash_iter += 5; //* Do step by 5 bits (5 bit per letter of upper alpha) 
             }
             buf.hash_len = hash_iter;
             iter+=iter_step;
@@ -41,7 +41,7 @@ void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long lo
             buf.beg = book + iter + 1;
         }
         iter+=iter_step;
-        if (buf.hash_len > 0){
+        if (buf.hash_len > 0){ //* add only line with more than 0 letters
             pushBack(lines_ptrs_arr, &buf);
         }
         // printf("%d %d\n", iter, end_iter);

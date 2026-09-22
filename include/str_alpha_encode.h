@@ -4,8 +4,7 @@
 #include <stdint.h>
 #include "din_arr.h"
 
-#define MAX_LETTERS_IN_BOOK 200000
-#define HASH_LEN 40
+#define HASH_LEN 40 //! must devided by 8
 
 struct Line_ptr{
     char *beg;

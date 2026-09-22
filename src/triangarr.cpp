@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "utils.h"
+
 struct match_res{
     unsigned comand1;
     unsigned comand2;
@@ -22,12 +24,7 @@ void writeMatchRes(char *result_table, unsigned first_com_ind, unsigned sec_com_
         return;
     }
     if (first_com_ind < sec_com_ind){
-        unsigned buf = first_com_ind;
-        first_com_ind = sec_com_ind;
-        sec_com_ind = buf;
-        buf = res.comand1;
-        res.comand1 = res.comand2;
-        res.comand2 = buf;
+        swap(&res.comand1, &res.comand2, sizeof(unsigned int));
     }
     match_res *match = (match_res *)getTriangPtr(result_table, sizeof(match_res), first_com_ind, sec_com_ind);
     *match = res;

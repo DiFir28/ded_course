@@ -1,23 +1,10 @@
 #include "sorts.hpp"
-#include "strings.hpp"
 #include <stdio.h>
 #include <math.h>
+#include "strings.hpp"
+#include "utils.h"
 
-void swap(void * first, void * second, size_t byte_count){
-    char *first_ptr = (char *)first;
-    char *second_ptr = (char *)second;
-    char temp = '\0'; 
-    // printf("Input : %d %d\n",*(int*)first, *(int*)second);
-    for (unsigned i = 0; i < byte_count; i++){
-        // printf("Before %d %d", *first_ptr, *second_ptr);
-        temp = *(first_ptr + i);
-        *(first_ptr + i) = *(second_ptr + i);
-        *(second_ptr + i) = temp;
-        // printf("after %d %d\n", *first_ptr, *second_ptr);  
-    }
-}
-
-void bableSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
+void bubbleSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
     char *arr_ptr = (char*)arr;
     for (unsigned i = 0; i < len - 1; i++){
         for (unsigned j = 0, end_j = len - i - 1; j < end_j; j++){
