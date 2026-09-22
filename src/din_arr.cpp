@@ -38,7 +38,7 @@ void getElement(mVector *vec, unsigned ind, void *des){
 }
 
 void swapElement(mVector *vec, unsigned ind1, unsigned ind2){
-    swap(vec->beg + vec->element_size * ind1, vec->beg + vec->element_size * ind2, vec->element_size);
+    swap((char*)vec->beg + vec->element_size * ind1, (char*)vec->beg + vec->element_size * ind2, vec->element_size);
 }
 
 void indexRemove(mVector *vec, unsigned ind){

@@ -21,8 +21,8 @@ char *readTextFile(const char *file_name, size_t *len){
     close(descr);
     *len =  readed;
     // printf("File size %d readed: %d\n", info.st_size, readed);
-    char* buf = (char*)realloc(mainText, readed + 3);
-    if (buf == NULL){
+    char* buff= (char*)realloc(mainText, readed + 3);
+    if (buff== NULL){
         printf("\033[31mERROR: NO MEMORY FOR FILE DATA");
         return NULL;
     }
@@ -32,20 +32,20 @@ char *readTextFile(const char *file_name, size_t *len){
 
 void writeHashArrInFile(FILE *file, mVector *hash_arr){
     for (unsigned print_iter = 0; print_iter < hash_arr->len; print_iter++){
-        Line_ptr buf = {};
-        getElement(hash_arr, print_iter, &buf);
+        Line_ptr buff= {};
+        getElement(hash_arr, print_iter, &buff);
         unsigned i = 0;
-        while (buf.beg[i] != '\n' && buf.beg[i] != '\0'){
-            // printf("%c", buf.beg[i]);
-            fputc(buf.beg[i], file);
+        while (buff.beg[i] != '\n' && buff.beg[i] != '\0'){
+            // printf("%c", buff.beg[i]);
+            fputc(buff.beg[i], file);
             i++;
         }
-        fputc(buf.beg[i], file);
+        fputc(buff.beg[i], file);
     }
 }
 
 void writeOutput(const char *ouput_name, mVector *hash_arr,  mVector *hash_arr2, char *mainText){
-    FILE *output = fopen("output.txt", "w");
+    FILE *output = fopen("Output.txt", "w");
     if (output == NULL){
         printf("\033[31mNo output available\n\033[0m");
         return;

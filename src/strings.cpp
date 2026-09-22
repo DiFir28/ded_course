@@ -178,13 +178,13 @@ char *strStr(char *src, char *trg){
     unsigned len = strLen(trg);
     char *beg = strChr(src, *(trg));
     while (beg != NULL){
-        char buf = *(beg + len);
+        char buff= *(beg + len);
         *(beg + len)  = '\0';
         if (strCmp(beg, trg) == 0){
-            *(beg + len) = buf;
+            *(beg + len) = buff;
             return beg;
         }
-        *(beg + len) = buf;
+        *(beg + len) = buff;
         beg = strChr(beg + 1, *(trg));
     }
     return NULL;
@@ -195,20 +195,20 @@ ssize_t getLine(char **strptr, size_t *len, FILE *input){
     size_t cur_len = 8;
     char *str =  (char *)calloc(cur_len, sizeof(char));
     *len = 0;
-    unsigned char buf = getc(input); 
-    str[*len] = buf;
+    unsigned char buff= getc(input); 
+    str[*len] = buff;
     (*len)++;
-    while (buf != NULL && buf != '\n' && buf != '\0'){
+    while (buff!= NULL && buff!= '\n' && buff!= '\0'){
         if (*len >= cur_len){
             cur_len += 8;
-            char *buf = (char*)realloc(str, cur_len * 2);
-            if (buf == NULL){
+            char *buff= (char*)realloc(str, cur_len * 2);
+            if (buff== NULL){
                 return NULL;
             }
-            str = buf;
+            str = buff;
         }
-        buf = getc(input);
-        str[*len] = buf;
+        buff= getc(input);
+        str[*len] = buff;
         (*len)++;
     }
     *strptr = str;

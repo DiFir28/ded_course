@@ -9,8 +9,6 @@
 #include "file_handler.cpp"
 #include "str_alpha_encode.h"
 
-void writeHashArrInFile(FILE *file, mVector *hash_arr);
-
 int main(int argc, char *argv[]){
     // int arr[] = {1403, 223, 1000, 654, 8523, 321};
     // quickSortInt(arr, 6, 0, arr, 6);

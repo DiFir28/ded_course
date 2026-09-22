@@ -42,6 +42,7 @@ int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void
     }
     quickSort(arr_ptr, elem_size, left_len, compare);
     quickSort(arr_ptr + left_len * elem_size + elem_size, elem_size, len - 1 - left_len, compare); 
+    free(pivot);
     return 0;
 }
 
