@@ -13,7 +13,7 @@ char *createTriang(unsigned ind_count, size_t unit_size){
     return (char*)calloc((ind_count+1) * ind_count / 2, unit_size);
 }
 
-char *getTriangPtr(char *result_table, size_t unit_size, unsigned first_com_ind, unsigned sec_com_ind){//TODO rename
+char *getTriangPtr(char *result_table, size_t unit_size, unsigned first_com_ind, unsigned sec_com_ind){
     assert(result_table != NULL);
     return (result_table + unit_size * ((first_com_ind + 1) * (first_com_ind)  / 2 + sec_com_ind));
 }

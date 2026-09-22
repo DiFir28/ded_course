@@ -1,10 +1,13 @@
 #include "sorts.hpp"
 #include <stdio.h>
 #include <math.h>
+#include <assert.h>
 #include "strings.hpp"
 #include "utils.h"
 
 void bubbleSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
+    assert(arr != NULL);
+    assert(compare != NULL);
     char *arr_ptr = (char*)arr;
     for (unsigned i = 0; i < len - 1; i++){
         for (unsigned j = 0, end_j = len - i - 1; j < end_j; j++){
@@ -16,6 +19,9 @@ void bubbleSort(void *arr, size_t elem_size, size_t len, int (*compare)(const vo
 }
 
 int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
+    assert(arr != NULL);
+    assert(compare != NULL);
+
     if (len <= 1){
         return 0;
     }
@@ -47,6 +53,7 @@ int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void
 }
 
 int quickSortInt(int *arr, size_t len, int lvl, int *base, int base_len){
+    assert(arr != NULL);
     if (len <= 1){
         return 0;
     }
@@ -82,7 +89,7 @@ int quickSortInt(int *arr, size_t len, int lvl, int *base, int base_len){
                 continue;
             }
             if (i > right_len){
-                printf("\033[34m%d\t\033[0m", arr[i]);
+                printf("\033[31m%d\t\033[0m", arr[i]);
                 continue;
             }
         }
@@ -128,13 +135,10 @@ int quickSortInt(int *arr, size_t len, int lvl, int *base, int base_len){
                 printf("\t");
             }
             printf("\033[33mSwap: %d %d\n\033[0m", left_len, right_len);
-            swap(arr + left_len, arr + right_len, sizeof(arr[0]));           
-            // printf("Right");
+            swap(arr + left_len, arr + right_len, sizeof(arr[0]));
         }else{
             left_len++;
-        // printf("Left");
         }
-        // printf("%d %d\n", left_len, right_len);
     }
     quickSortInt(arr, left_len, (arr - base), base, base_len);
     quickSortInt(arr + left_len + 1, len - 1 - left_len, arr + left_len + 1 - base, base, base_len); 

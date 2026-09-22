@@ -14,6 +14,6 @@ struct Line_ptr{
 
 int Line_cmp(const void* a_ptr, const void* b_ptr);
 
-void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long long iter_step, long long end_iter, bool reverse_flag);
+void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long long end_iter, bool reverse_flag);
 
 #endif

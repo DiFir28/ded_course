@@ -8,17 +8,17 @@ unsigned strLen(const char *str){
     return i;
 }
 
-unsigned strNLen(const char *str, size_t n){
+unsigned strNLen(const char *str, size_t number){
     assert(str != NULL);
     unsigned i = 0;
-    for (; str[i] != '\0' && i < n; i++){;}
+    for (; str[i] != '\0' && i < number; i++){;}
     return i;
 }
 
-unsigned strNLen(const char *str, unsigned n){
+unsigned strNLen(const char *str, unsigned number){
     assert(str != NULL);
     unsigned i = 0;
-    for (; *(str + i) != '\0' && i < n; i++);
+    for (; *(str + i) != '\0' && i < number; i++);
     return i;
 }
 
@@ -48,24 +48,24 @@ char *strCpy(char *dst, const char *src){
     return dst;
 }
 
-char *strNCpy(char *dst, const char *src, size_t n){
+char *strNCpy(char *dst, const char *src, size_t number){
     assert(dst != NULL);
     assert(src != NULL);
     unsigned i = 0;
-    for (; src[i] != '\0' && dst[i] != '\0' && i < n; i++){
+    for (; src[i] != '\0' && dst[i] != '\0' && i < number; i++){
         dst[i] = src[i];
     }
-    assert(dst[i] != '\0' && i == n);
+    assert(dst[i] != '\0' && i == number);
     return dst;
 }
 
-void *memCpy(void *dst, const void *src, size_t n){
+void *memCpy(void *dst, const void *src, size_t number){
     assert(dst != NULL);
     assert(src != NULL);
     char *dst_prt = (char*)dst;
     char *src_ptr = (char*)src;
     unsigned i = 0;
-    for (; i < n; i++){
+    for (; i < number; i++){
         *(dst_prt + i) = *(src_ptr + i);
     }
     return dst;
@@ -80,12 +80,12 @@ char *strDup(char *str){
     return new_str;
 }
 
-char *strNDup(char *str, size_t n){
-    char *new_str = (char*)calloc(strNLen(str, n) + 1, sizeof(char));
+char *strNDup(char *str, size_t number){
+    char *new_str = (char*)calloc(strNLen(str, number) + 1, sizeof(char));
     if (new_str == NULL){
         return NULL;
     }
-    strNCpy(new_str, str, n);
+    strNCpy(new_str, str, number);
     return new_str;
 }
 
@@ -132,13 +132,13 @@ char *strCat(char *dst, const char *src){
     return dst;
 }
 
-char *strNCat(char *dst, const char *src, size_t n){
+char *strNCat(char *dst, const char *src, size_t number){
     assert(dst != NULL);
     assert(src != NULL);
     unsigned dst_i = 0;
     for (; *(dst + dst_i) != '\0'; dst_i++){;}
     unsigned src_i = 0;
-    for (; src[src_i] != '\0' && src_i < n; src_i++){
+    for (; src[src_i] != '\0' && src_i < number; src_i++){
         dst[src_i + dst_i] = src[src_i];
     }
     dst[src_i + dst_i] = '\0';
@@ -159,12 +159,12 @@ int strCmp(const char *str1, const char *str2){
     }
 }
 
-int strNCmp(const char *str1, const char *str2, size_t n){
+int strNCmp(const char *str1, const char *str2, size_t number){
     assert(str1 != NULL);
     assert(str2 != NULL);
-    n--;
+    number--;
     unsigned i = 0;
-    for (; str1[i] == str2[i] && str1[i] != '\0' && i < n; i++){;}
+    for (; str1[i] == str2[i] && str1[i] != '\0' && i < number; i++){;}
     if (str1[i] == str2[i])
     {
         return 0;

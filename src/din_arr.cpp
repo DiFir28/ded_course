@@ -27,7 +27,7 @@ int pushBack(mVector *vec, void *val){
 
 void writeElement(mVector *vec, unsigned ind, void *val){
     if (ind >= vec->max_len){
-        printf("WARN");
+        printf("\033[33mElement index out off range\n\033[0m");
         return;
     }
     memCpy((char*)vec->beg + ind * vec->element_size, val, vec->element_size);
@@ -46,4 +46,8 @@ void indexRemove(mVector *vec, unsigned ind){
         swapElement(vec, i, i + 1);
     }
     vec->len-=1;
+}
+
+void destructVector(mVector *vec){
+    free(vec->beg);
 }

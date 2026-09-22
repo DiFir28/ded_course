@@ -17,5 +17,6 @@ void writeElement(mVector *vec, unsigned ind, void *val);
 void getElement(mVector *vec, unsigned ind, void *des);
 void swapElement(mVector *vec, unsigned ind1, unsigned ind2);
 void indexRemove(mVector *vec, unsigned ind);
+void destructVector(mVector *vec);
 
 #endif

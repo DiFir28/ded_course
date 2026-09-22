@@ -8,17 +8,18 @@ int Line_cmp(const void* a_ptr, const void* b_ptr){
     Line_ptr a = *(Line_ptr*)a_ptr;
     Line_ptr b = *(Line_ptr*)b_ptr;
     unsigned cmp_iter = 0;
-    while(uint32_t(a.hash[cmp_iter]) == uint32_t(b.hash[cmp_iter]) && cmp_iter + 8 < HASH_LEN - 1){ //! step by 8
-        cmp_iter+=4;
+    while(uint64_t(a.hash[cmp_iter]) == uint64_t(b.hash[cmp_iter]) && cmp_iter + 8 < HASH_LEN - 1){ //! step by 8
+        cmp_iter+=8;
     }
-    if (uint32_t(a.hash[cmp_iter]) == uint32_t(b.hash[cmp_iter])){
+    if (uint64_t(a.hash[cmp_iter]) == uint64_t(b.hash[cmp_iter])){
         return 0;
     }
-    return bool2sign(uint32_t(a.hash[cmp_iter]) > uint32_t(b.hash[cmp_iter]));
+    return bool2sign(uint64_t(a.hash[cmp_iter]) > uint64_t(b.hash[cmp_iter]));
 }
 
-void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long long iter_step, long long end_iter, bool reverse_flag){
+void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long long end_iter, bool reverse_flag){
     long long iter = start_iter;
+    long long iter_step = -sign(reverse_flag);
     while (iter < end_iter && iter > 0)
     {
         Line_ptr buff= {(book + iter), 0, 0};
@@ -44,7 +45,5 @@ void calcHash(mVector *lines_ptrs_arr, char *book, long long start_iter, long lo
         if (buff.hash_len > 0){ //* add only line with more than 0 letters
             pushBack(lines_ptrs_arr, &buff);
         }
-        // printf("%d %d\n", iter, end_iter);
     }
-    // printf("End!");
 }
