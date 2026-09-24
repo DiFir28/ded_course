@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <time.h>
+#include <stdlib.h>
 
 #include "strings.hpp"
 #include "sorts.hpp"
 #include "din_arr.h"
-#include "triangarr.cpp"
 #include "file_handler.h"
 #include "Onegin.h"
 
