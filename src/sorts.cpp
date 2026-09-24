@@ -18,7 +18,7 @@ void bubbleSort(void *arr, size_t elem_size, size_t len, int (*compare)(const vo
     }
 }
 
-int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
+int quickSort(void *arr, size_t len, size_t elem_size, int (*compare)(const void*, const void*)){
     assert(arr != NULL);
     assert(compare != NULL);
 
@@ -46,8 +46,8 @@ int quickSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void
             left_len++;
         }
     }
-    quickSort(arr_ptr, elem_size, left_len, compare);
-    quickSort(arr_ptr + left_len * elem_size + elem_size, elem_size, len - 1 - left_len, compare); 
+    quickSort(arr_ptr, left_len, elem_size, compare);
+    quickSort(arr_ptr + left_len * elem_size + elem_size, len - 1 - left_len, elem_size, compare); 
     free(pivot);
     return 0;
 }
