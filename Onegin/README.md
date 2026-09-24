@@ -21,6 +21,7 @@ z ~ Z ~ ASCII 90 ~ HASH 11010 (26)
 Sorted text writed in 2 file by sorted ways:
 1) `OutputLine.txt`
 2) `OutputHash.txt`
+
 Files struct:
 ```
 Sorted lines from begin to end
@@ -29,3 +30,4 @@ Sorted lines from end to begin
 ////////////////
 Original text
 ```
+
