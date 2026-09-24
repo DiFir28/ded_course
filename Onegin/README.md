@@ -1,8 +1,8 @@
 # №1 Task: Onegin
 ## Built and Run:
-Built: `./built_Onegin`  
-Run: `./Onegin bookName.txt`  
-If bookName doesn't set in cli argument, default bookName is *Onegin.txt*  
+Built from repository folder: `./Onegin/built_Onegin`  
+Run from repository folder: `./Onegin bookName.txt`  
+If bookName doesn't set in cli argument, **default bookName** is `Onegin.txt`  
 $${\color{red} File \space must \space contain \space only \space ASCII \space symbols}$$  
 ## Realisation:
 File sort with 2 ways for compare speed.
