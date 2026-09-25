@@ -37,6 +37,10 @@ void getElement(mVector *vec, unsigned ind, void *des){
     memCpy((char*)des, (char*)vec->beg + ind * vec->element_size, vec->element_size);
 }
 
+void *getElementPtr(mVector *vec, unsigned ind){
+    return ((char*)vec->beg + ind * vec->element_size);
+}
+
 void swapElement(mVector *vec, unsigned ind1, unsigned ind2){
     swap((char*)vec->beg + vec->element_size * ind1, (char*)vec->beg + vec->element_size * ind2, vec->element_size);
 }

@@ -5,7 +5,7 @@
 #include "strings.hpp"
 #include "utils.h"
 
-void bubbleSort(void *arr, size_t elem_size, size_t len, int (*compare)(const void*, const void*)){
+void bubbleSort(void *arr, size_t len, size_t elem_size, int (*compare)(const void*, const void*)){
     assert(arr != NULL);
     assert(compare != NULL);
     char *arr_ptr = (char*)arr;
@@ -21,34 +21,41 @@ void bubbleSort(void *arr, size_t elem_size, size_t len, int (*compare)(const vo
 int quickSort(void *arr, size_t len, size_t elem_size, int (*compare)(const void*, const void*)){
     assert(arr != NULL);
     assert(compare != NULL);
+    assert(len != 0);
 
     if (len <= 1){
         return 0;
     }
     char *arr_ptr = (char*)arr;
-    unsigned pivot_ind = len/2;
-    char* pivot = (char *)calloc(1, elem_size);
+    size_t pivot_ind = len/2;
+    char* pivot = (char *)malloc(elem_size);
+    assert(pivot != NULL);
     memCpy(pivot, arr_ptr + (pivot_ind) * elem_size, elem_size);
     
-    unsigned left_len = 0;
-    unsigned right_len = len;
+    size_t left_len = 0;
+    size_t right_len = len - 1;
 
-    while(left_len < right_len){
-        if (compare(arr_ptr + left_len * elem_size, pivot) >= 0){
-            do{ 
-            right_len--;
-            }while ((compare(arr_ptr + right_len * elem_size, pivot) > 0) && right_len > left_len);
-            if (right_len == left_len){
-                break;
-            }
-            swap(arr_ptr + left_len * elem_size, arr_ptr + right_len * elem_size, elem_size);           
-        }else{
+    while(1){
+        while(left_len < len && compare(arr_ptr + left_len * elem_size, pivot) < 0){
             left_len++;
         }
+        while(right_len > 0 && compare(arr_ptr + right_len * elem_size, pivot) > 0){
+            right_len--;
+        }
+        if (left_len >= right_len){
+            break;
+        }
+        swap(arr_ptr + left_len * elem_size, arr_ptr + right_len * elem_size, elem_size);
+        left_len++;
+        right_len--;
     }
-    quickSort(arr_ptr, left_len, elem_size, compare);
-    quickSort(arr_ptr + left_len * elem_size + elem_size, len - 1 - left_len, elem_size, compare); 
     free(pivot);
+    if (right_len == len - 1){
+        quickSort(arr_ptr, right_len, elem_size, compare);
+        return 0;
+    }
+    quickSort(arr_ptr, right_len + 1, elem_size, compare);
+    quickSort(arr_ptr + (right_len + 1) * elem_size, len - 1 - right_len, elem_size, compare); 
     return 0;
 }
 

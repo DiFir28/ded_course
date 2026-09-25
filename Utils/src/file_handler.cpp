@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <unistd.h>
 #include <assert.h>
 
@@ -13,7 +14,8 @@
 char *readTextFile(const char *file_name, size_t *len){
     struct stat info;
     if (stat(file_name, &info) == -1){
-        printf("\033[31mFILE ERROR\n\033[0m");
+        int file_error_code = errno;
+        printf("\033[31mFILE ERROR with code: %d\n\033[0m", file_error_code);
         return NULL;
     }
     char *mainText = (char*)calloc(info.st_size + RESERVED_MEMORY, sizeof(char));
@@ -42,12 +44,13 @@ void writeLineArrInFile(FILE *file, mVector *hash_arr){
     assert(file != NULL);
     assert(hash_arr != NULL);
     for (int i = 0; i < hash_arr->len - 1; i++){
+        Line_ptr* prev_buff = (Line_ptr*)(getElementPtr(hash_arr,i));
         int j = 0;
-        while(((char**)hash_arr->beg)[i][j] != '\n'){
-            fputc(((char**)hash_arr->beg)[i][j], file);
+        while ((prev_buff->beg)[j] != '\n'){
+            putc((prev_buff->beg)[j], file);
             j++;
         }
-        fputc(((char**)hash_arr->beg)[i][j], file);
+        putc((prev_buff->beg)[j], file);
     }
 }
 

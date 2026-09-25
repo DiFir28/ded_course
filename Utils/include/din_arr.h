@@ -15,6 +15,7 @@ mVector createVectorSys(unsigned len, size_t element_size);
 int pushBack(mVector *vec, void *val);
 void writeElement(mVector *vec, unsigned ind, void *val);
 void getElement(mVector *vec, unsigned ind, void *des);
+void *getElementPtr(mVector *vec, unsigned ind);
 void swapElement(mVector *vec, unsigned ind1, unsigned ind2);
 void indexRemove(mVector *vec, unsigned ind);
 void destructVector(mVector *vec);
