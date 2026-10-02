@@ -6,11 +6,14 @@
  * Dinamic array
  * Hashing
  * Handler for read and write file
+ * Stack
+ * Dumping program
 
 <sup>This function realised in [Utils](Utils/) folder</sup>
 
 ***
 ## Tasks:
 * ### [Onegin](Onegin/README.md)
+* ### [Stack](Stack/README.md)
 
 
