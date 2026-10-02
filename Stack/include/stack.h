@@ -7,9 +7,6 @@
 #define DABBADOO 3669732608
 #define MALLOC_END_BIRDIE_PTR(ptr, capa) (ptr + capa  * sizeof(stack_elem_t) + 8)
 
-#define STACK_BIRDIE 1
-#define STACK_HASH 1
-
 #if STACK_DEBUG == 1
     #define createStack(name, capacity, dump) stack_t name = _createStack(capacity, #name, __FILE__, __LINE__, dump)
     #define resizeStack(stack, new_size) _resizeStack(stack, new_size, __FILE__, __LINE__)
@@ -26,7 +23,7 @@
     #define stkdump(dump, ...)  
 #endif
 
-#if STACK_BIRDIE == 1
+#if STACK_CANARY == 1
     #define BIRDIE_OFFSET  16
 #else
     #define BIRDIE_OFFSET 0
@@ -62,9 +59,8 @@ enum error_type{
     STACK_UNDERFLOW = 2,
     STACK_PTR_ERROR = 3,
     INC_CORECRT_LEN = 4,
-    ETXINF_ERROR = 5,
-    BIRDIE_ERROR = 6,
-    HASH_MISMATCH = 7
+    BIRDIE_ERROR = 5,
+    HASH_MISMATCH = 6
 };
 
 struct stack_info{
@@ -76,7 +72,7 @@ struct stack_info{
 
 struct stack_t
 {   
-    #if STACK_BIRDIE == 1
+    #if STACK_CANARY == 1
         uint32_t birdie_beg;
     #endif
     char *ptr;
@@ -91,7 +87,7 @@ struct stack_t
         uint32_t stk_hash;
         uint32_t data_hash;
     #endif
-    #if STACK_BIRDIE == 1
+    #if STACK_CANARY == 1
         uint32_t birdie_end;
     #endif
 };
@@ -135,7 +131,7 @@ stack_t _createStack(size_t size
     output_stack.len = 0;
     output_stack.capacity = start_capacity;
     
-    #if STACK_BIRDIE == 1
+    #if STACK_CANARY == 1
         output_stack.birdie_beg = CAFEDUDE;
         output_stack.birdie_end = CAFEDUDE;
         *(uint32_t*)output_stack.ptr = DABBADOO;
@@ -161,7 +157,7 @@ char checkStack(stack_t *stack){
         stack->error |= 1 << MEMORY_ERROR;
         return stack->error;
     }
-    #if STACK_BIRDIE == 1
+    #if STACK_CANARY == 1
         if (stack->birdie_beg != CAFEDUDE || stack->birdie_end != CAFEDUDE || 
             *(uint32_t*)stack->ptr != DABBADOO || *(uint32_t*)MALLOC_END_BIRDIE_PTR(stack->ptr, stack->capacity) != DABBADOO){
             stack->error |= 1 << BIRDIE_ERROR;
@@ -208,7 +204,7 @@ char _resizeStack(stack_t *stack, size_t new_size
     stack->ptr = buff;
     stack->capacity = new_size;
 
-    #if STACK_BIRDIE == 1
+    #if STACK_CANARY == 1
         *(uint32_t*)stack->ptr = DABBADOO;
         *(uint32_t*)MALLOC_END_BIRDIE_PTR(stack->ptr, stack->capacity) = DABBADOO;
     #endif
@@ -303,4 +299,37 @@ void printStack(stack_t *stack){
     #ifdef STACK_DEBUG
          printf("}\n");
     #endif   
+}
+
+void printStackError(char error_code){
+    if (error_code == 0){
+        printf("Stack totaly fine\n");
+    }
+    for (int i = 0; i < 8; i++){
+        if (((1<<i) & error_code) != 0){
+            switch (i)
+            {
+            case MEMORY_ERROR:
+                printf("");
+                break;
+            case STACK_UNDERFLOW:
+                printf("Stack underflow\n");
+                break;
+            case STACK_PTR_ERROR:
+                printf("Wrong pointer was given\n");
+                break;
+            case INC_CORECRT_LEN:
+                printf("Wrong difference between len and capacity, detected external influence.\n");
+                break;
+            case BIRDIE_ERROR:
+                printf("Stack canary missed, detected external influence.\n");
+                break;
+            case HASH_MISMATCH:
+                printf("Stack hash mismatch, detected external influence.\n");
+                break;
+            default:
+                break;
+            }
+        }
+    }
 }

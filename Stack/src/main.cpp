@@ -9,8 +9,12 @@
 
 #define STACK_TYPE STACK_CHAR
 #define STACK_DEBUG 1
+#define STACK_CANARY 1
+#define STACK_HASH 1
 
 #include "stack.h"
+
+
 
 int main(){
     FILE *dump = fopen("dump.txt", "w");
@@ -20,7 +24,12 @@ int main(){
     pushBack(&myStack, '2');
     pushBack(&myStack, '3');
     popBack(&myStack);
+    popBack(&myStack);
+    popBack(&myStack);
+    popBack(&myStack);
+
     printStack(&myStack);
+    printStackError(myStack.error);
     destroyStack(&myStack);
     fclose(dump);
     return 0;
