@@ -29,7 +29,9 @@ char *readTextFile(const char *file_name, size_t *len){
     ssize_t readed = read(descr, mainText + 1, info.st_size);
     close(descr);
     *len =  readed;
-    char* buff= (char*)realloc(mainText, readed + 3);
+    char* buff = (char*)realloc(mainText, readed + 3); 
+    //* 3 additional bytes is request for: \n in start, \n and \0 in and for marker all starts and ends of lines was \n, and \0 as end of file
+
     if (buff== NULL){
         printf("\033[31mERROR: NO MEMORY FOR FILE DATA\n\033[0m");
         return NULL;
