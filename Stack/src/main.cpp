@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "malloc.h"
 
+#define DUMP_DIR "dump.txt"
+
 #define STACK_INT    1
 #define STACK_CHAR   2
 #define STACK_DOUBLE 3
@@ -15,22 +17,15 @@
 #include "stack.h"
 
 
-
 int main(){
-    FILE *dump = fopen("dump.txt", "w");
-    createStack(myStack, 10, dump);
+    createStack(myStack, 10);
     checkStack(&myStack);
-    pushBack(&myStack, '1');
-    pushBack(&myStack, '2');
-    pushBack(&myStack, '3');
-    popBack(&myStack);
-    popBack(&myStack);
-    popBack(&myStack);
-    popBack(&myStack);
+    pushBack(&myStack, 'a');
+    pushBack(&myStack, 'b');
+    pushBack(&myStack, 'c');
 
-    printStack(&myStack);
+    dumpStack(&myStack);
     printStackError(myStack.error);
     destroyStack(&myStack);
-    fclose(dump);
     return 0;
 }
