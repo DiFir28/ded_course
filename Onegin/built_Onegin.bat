@@ -1,0 +1,1 @@
+ g++ -I./Utils/include -I./Onegin/include Utils/src/file_handler.cpp Utils/src/strings.cpp Utils/src/din_arr.cpp Utils/src/sorts.cpp Utils/src/Utils.cpp Onegin/src/main.cpp Onegin/src/Onegin.cpp -o  Onegin 

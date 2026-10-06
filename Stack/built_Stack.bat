@@ -1,0 +1,1 @@
+ g++ -I./Utils/include -I./Stack/include Utils/src/strings.cpp Utils/src/din_arr.cpp Utils/src/sorts.cpp Utils/src/Utils.cpp Stack/src/main.cpp -o  Stack 
